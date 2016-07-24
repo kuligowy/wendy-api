@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kuligowy.models.menu;
+package pl.kuligowy.models.orders;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,24 +17,19 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.hateoas.ResourceSupport;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author coolig
  */
 @Entity
-@Table(name = "menu_block")
+@Table(name = "product" )
 @NamedQueries({
-    @NamedQuery(name = "MenuBlock.findByUser",
-            query = "SELECT distinct mb FROM User u,MenuBlock mb "
-            + " LEFT JOIN u.permissionList upl "
-            + " LEFT JOIN u.roleId.permissionList rpl "
-            + " JOIN mb.menuBlockItemList mbi "
-            + "WHERE (mbi.permissionId.id = upl.id  OR  mbi.permissionId.id = rpl.id  ) "
-            + "  AND u.id = ?1 "
-            + "ORDER BY mb.sort asc ")})
-public class MenuBlock implements Serializable  {
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
+    @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
+    @NamedQuery(name = "Product.findByTitle", query = "SELECT p FROM Product p WHERE p.title = :title")})
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,18 +37,16 @@ public class MenuBlock implements Serializable  {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 2147483647)
     @Column(name = "title")
     private String title;
-    @Column(name = "sort")
-    private Integer sort;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "menuBlockId")
-    private List<MenuBlockItem> menuBlockItemList;
+    @OneToMany(mappedBy = "productId")
+    private List<WOrderItem> wOrderItemList;
 
-    public MenuBlock() {
+    public Product() {
     }
 
-    public MenuBlock(Integer id) {
+    public Product(Integer id) {
         this.id = id;
     }
 
@@ -74,20 +66,12 @@ public class MenuBlock implements Serializable  {
         this.title = title;
     }
 
-    public Integer getSort() {
-        return sort;
+    public List<WOrderItem> getWOrderItemList() {
+        return wOrderItemList;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public List<MenuBlockItem> getMenuBlockItemList() {
-        return menuBlockItemList;
-    }
-
-    public void setMenuBlockItemList(List<MenuBlockItem> menuBlockItemList) {
-        this.menuBlockItemList = menuBlockItemList;
+    public void setWOrderItemList(List<WOrderItem> wOrderItemList) {
+        this.wOrderItemList = wOrderItemList;
     }
 
     @Override
@@ -100,10 +84,10 @@ public class MenuBlock implements Serializable  {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MenuBlock)) {
+        if (!(object instanceof Product)) {
             return false;
         }
-        MenuBlock other = (MenuBlock) object;
+        Product other = (Product) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +96,7 @@ public class MenuBlock implements Serializable  {
 
     @Override
     public String toString() {
-        return "pl.kuligowy.models.test.MenuBlock[ id=" + id + " ]";
+        return "pl.kuligowy.models.orders.Product[ id=" + id + " ]";
     }
-
+    
 }

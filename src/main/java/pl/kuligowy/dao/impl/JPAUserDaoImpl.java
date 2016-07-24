@@ -4,6 +4,8 @@
  */
 package pl.kuligowy.dao.impl;
 
+import pl.kuligowy.dao.repositiories.JPARepositoryUser;
+import pl.kuligowy.dao.repositiories.JPARepositoryMenuBlockItem;
 import com.google.common.collect.Lists;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

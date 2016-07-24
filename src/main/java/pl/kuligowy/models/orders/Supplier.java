@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kuligowy.models.menu;
+package pl.kuligowy.models.orders;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,24 +17,20 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.hateoas.ResourceSupport;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author coolig
  */
 @Entity
-@Table(name = "menu_block")
+@Table(name = "supplier")
 @NamedQueries({
-    @NamedQuery(name = "MenuBlock.findByUser",
-            query = "SELECT distinct mb FROM User u,MenuBlock mb "
-            + " LEFT JOIN u.permissionList upl "
-            + " LEFT JOIN u.roleId.permissionList rpl "
-            + " JOIN mb.menuBlockItemList mbi "
-            + "WHERE (mbi.permissionId.id = upl.id  OR  mbi.permissionId.id = rpl.id  ) "
-            + "  AND u.id = ?1 "
-            + "ORDER BY mb.sort asc ")})
-public class MenuBlock implements Serializable  {
+    @NamedQuery(name = "Supplier.findAll", query = "SELECT s FROM Supplier s"),
+    @NamedQuery(name = "Supplier.findById", query = "SELECT s FROM Supplier s WHERE s.id = :id"),
+    @NamedQuery(name = "Supplier.findByTitle", query = "SELECT s FROM Supplier s WHERE s.title = :title"),
+    @NamedQuery(name = "Supplier.findByAddress", query = "SELECT s FROM Supplier s WHERE s.address = :address")})
+public class Supplier implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,18 +38,19 @@ public class MenuBlock implements Serializable  {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Size(max = 2147483647)
     @Column(name = "title")
     private String title;
-    @Column(name = "sort")
-    private Integer sort;
-    @JsonManagedReference
-    @OneToMany(mappedBy = "menuBlockId")
-    private List<MenuBlockItem> menuBlockItemList;
+    @Size(max = 2147483647)
+    @Column(name = "address")
+    private String address;
+    @OneToMany(mappedBy = "supplierId")
+    private List<WOrderItem> wOrderItemList;
 
-    public MenuBlock() {
+    public Supplier() {
     }
 
-    public MenuBlock(Integer id) {
+    public Supplier(Integer id) {
         this.id = id;
     }
 
@@ -74,20 +70,20 @@ public class MenuBlock implements Serializable  {
         this.title = title;
     }
 
-    public Integer getSort() {
-        return sort;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public List<MenuBlockItem> getMenuBlockItemList() {
-        return menuBlockItemList;
+    public List<WOrderItem> getWOrderItemList() {
+        return wOrderItemList;
     }
 
-    public void setMenuBlockItemList(List<MenuBlockItem> menuBlockItemList) {
-        this.menuBlockItemList = menuBlockItemList;
+    public void setWOrderItemList(List<WOrderItem> wOrderItemList) {
+        this.wOrderItemList = wOrderItemList;
     }
 
     @Override
@@ -100,10 +96,10 @@ public class MenuBlock implements Serializable  {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof MenuBlock)) {
+        if (!(object instanceof Supplier)) {
             return false;
         }
-        MenuBlock other = (MenuBlock) object;
+        Supplier other = (Supplier) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -112,7 +108,7 @@ public class MenuBlock implements Serializable  {
 
     @Override
     public String toString() {
-        return "pl.kuligowy.models.test.MenuBlock[ id=" + id + " ]";
+        return "pl.kuligowy.models.orders.Supplier[ id=" + id + " ]";
     }
-
+    
 }
