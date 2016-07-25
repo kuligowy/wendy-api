@@ -44,8 +44,6 @@ public class WOrderStatus implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "description")
     private String description;
-    @OneToMany(mappedBy = "statusId")
-    private List<WOrder> wOrderList;
 
     public WOrderStatus() {
     }
@@ -78,13 +76,6 @@ public class WOrderStatus implements Serializable {
         this.description = description;
     }
 
-    public List<WOrder> getWOrderList() {
-        return wOrderList;
-    }
-
-    public void setWOrderList(List<WOrder> wOrderList) {
-        this.wOrderList = wOrderList;
-    }
 
     @Override
     public int hashCode() {

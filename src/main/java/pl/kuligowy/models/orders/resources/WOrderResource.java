@@ -5,56 +5,45 @@
  */
 package pl.kuligowy.models.orders.resources;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import org.springframework.hateoas.ResourceSupport;
-import pl.kuligowy.models.orders.WOrderStatus;
+import pl.kuligowy.models.orders.WOrder;
 
 /**
  *
  * @author coolig
  */
+@JsonRootName(value = "worder")
 public class WOrderResource extends ResourceSupport implements Serializable {
 
-    private Integer id;
+//    private Integer id;
     private Date timeoforder;
     private String description;
     private Integer ownerId;
-    private WOrderStatus statusId;
+    private String statusId;
 
-    public WOrderResource() {
+    public WOrderResource(WOrder order) {
+//        this.id = order.getId();
+        this.timeoforder = order.getTimeoforder();
+        this.description = order.getDescription();
+        this.ownerId = order.getOwnerId();
+        this.statusId = order.getStatusId().getTitle();
     }
 
-    public WOrderResource(Integer id) {
-        this.id = id;
-    }
-
-    @JsonProperty(value = "id")
-    public Integer getObjectId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+//    public WOrderResource(Integer id) {
+//        this.id = id;
+//    }
+//
+//    @JsonProperty(value = "id")
+//    public Integer getObjectId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
     public Date getTimeoforder() {
         return timeoforder;
     }
@@ -79,36 +68,50 @@ public class WOrderResource extends ResourceSupport implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public WOrderStatus getStatusId() {
+    public String getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(WOrderStatus statusId) {
+    public void setStatusId(String statusId) {
         this.statusId = statusId;
-    }
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof WOrderResource)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        WOrderResource other = (WOrderResource) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final WOrderResource other = (WOrderResource) obj;
+        if (this.timeoforder != other.timeoforder && (this.timeoforder == null || !this.timeoforder.equals(other.timeoforder))) {
+            return false;
+        }
+        if ((this.description == null) ? (other.description != null) : !this.description.equals(other.description)) {
+            return false;
+        }
+        if (this.ownerId != other.ownerId && (this.ownerId == null || !this.ownerId.equals(other.ownerId))) {
+            return false;
+        }
+        if ((this.statusId == null) ? (other.statusId != null) : !this.statusId.equals(other.statusId)) {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
-        return "pl.kuligowy.models.orders.WOrder[ id=" + id + " ]";
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (this.timeoforder != null ? this.timeoforder.hashCode() : 0);
+        hash = 79 * hash + (this.description != null ? this.description.hashCode() : 0);
+        hash = 79 * hash + (this.ownerId != null ? this.ownerId.hashCode() : 0);
+        hash = 79 * hash + (this.statusId != null ? this.statusId.hashCode() : 0);
+        return hash;
     }
-    
+
+    @Override
+    public String toString() {
+        return "pl.kuligowy.models.orders.WOrder[ id=" + hashCode() + " ]";
+    }
 }

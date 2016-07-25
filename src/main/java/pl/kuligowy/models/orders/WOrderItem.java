@@ -5,6 +5,7 @@
  */
 package pl.kuligowy.models.orders;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
@@ -56,6 +57,7 @@ public class WOrderItem implements Serializable {
     private Supplier supplierId;
     @JoinColumn(name = "worder_id", referencedColumnName = "id")
     @ManyToOne
+    @JsonBackReference
     private WOrder worderId;
 
     public WOrderItem() {

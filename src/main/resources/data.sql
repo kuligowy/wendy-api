@@ -52,8 +52,32 @@ INSERT INTO menu_block_item(id,title,status_id,menu_block_id,permission_id,sort)
 INSERT INTO menu_block_item(id,title,status_id,menu_block_id,permission_id,sort) VALUES (7,'closed',20,3,7,20);
 INSERT INTO menu_block_item(id,title,status_id,menu_block_id,permission_id,sort) VALUES (8,'printed',30,3,8,30);
 
---INSERT INTO menu_block_item_permission(id,permission_id,menu_block_item_id) VALUES(1,1,1);
---INSERT INTO menu_block_item_permission(id,permission_id,menu_block_item_id) VALUES(2,2,2);
---INSERT INTO menu_block_item_permission(id,permission_id,menu_block_item_id) VALUES(3,3,3);
---INSERT INTO menu_block_item_permission(id,permission_id,menu_block_item_id) VALUES(4,4,4);
---INSERT INTO menu_block_item_permission(id,permission_id,menu_block_item_id) VALUES(5,5,5);
+INSERT INTO supplier(id,title,address) values(1,'dostawca A','fordonska');
+INSERT INTO supplier(id,title,address) values(2,'dostawca B','gdańska');
+INSERT INTO supplier(id,title,address) values(3,'dostawca C','focha');
+INSERT INTO supplier(id,title,address) values(4,'dostawca D','toruńska');
+
+insert into product(id,title) values(1,'mydlo');
+insert into product(id,title) values(2,'pasta');
+insert into product(id,title) values(3,'gąbka');
+insert into product(id,title) values(4,'szczotka');
+insert into product(id,title) values(5,'ręcznik');
+
+insert into worder_status(id,title) values (10,'open 10');
+insert into worder_status(id,title) values (20,'open 20 ');
+insert into worder_status(id,title) values (30,'open 30 ');
+insert into worder_status(id,title) values (40,'open 40');
+insert into worder_status(id,title) values (50,'open 50 ');
+
+insert into worder (id,timeoforder,description,owner_id,status_id) values(1,now(),'test 10',1,10);
+insert into worder (id,timeoforder,description,owner_id,status_id) values(2,now(),'test 10 - 2',1,10);
+insert into worder (id,timeoforder,description,owner_id,status_id) values(3,now(),'test 30',1,30);
+insert into worder (id,timeoforder,description,owner_id,status_id) values(4,now(),'test 40',1,30);
+insert into worder (id,timeoforder,description,owner_id,status_id) values(5,now(),'test 50',1,30);
+
+insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(1,10,10,1,1,1);
+insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(2,11,9,2,3,2);
+insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(3,12,8,3,2,3);
+insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(4,13,7,4,4,4);
+insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(5,14,6,5,3,5);
+

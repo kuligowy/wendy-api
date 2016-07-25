@@ -6,7 +6,6 @@
 package pl.kuligowy.models.orders;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -24,7 +22,7 @@ import javax.validation.constraints.Size;
  * @author coolig
  */
 @Entity
-@Table(name = "product" )
+@Table(name = "product")
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id"),
@@ -40,8 +38,6 @@ public class Product implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "title")
     private String title;
-    @OneToMany(mappedBy = "productId")
-    private List<WOrderItem> wOrderItemList;
 
     public Product() {
     }
@@ -64,14 +60,6 @@ public class Product implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<WOrderItem> getWOrderItemList() {
-        return wOrderItemList;
-    }
-
-    public void setWOrderItemList(List<WOrderItem> wOrderItemList) {
-        this.wOrderItemList = wOrderItemList;
     }
 
     @Override
@@ -98,5 +86,4 @@ public class Product implements Serializable {
     public String toString() {
         return "pl.kuligowy.models.orders.Product[ id=" + id + " ]";
     }
-    
 }

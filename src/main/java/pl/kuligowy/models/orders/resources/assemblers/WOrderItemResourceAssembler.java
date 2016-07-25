@@ -10,29 +10,29 @@ import java.util.List;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
-import pl.kuligowy.models.orders.WOrder;
-import pl.kuligowy.models.orders.resources.WOrderResource;
-import pl.kuligowy.rest.WOrderRestController;
+import pl.kuligowy.rest.WOrderItemRestController;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import pl.kuligowy.models.orders.WOrderItem;
+import pl.kuligowy.models.orders.resources.WOrderItemResource;
 
 /**
  *
  * @author coolig
  */
 @Component
-public class WOrderResourceAssembler extends ResourceAssemblerSupport<WOrder, WOrderResource> {
+public class WOrderItemResourceAssembler extends ResourceAssemblerSupport<WOrderItem, WOrderItemResource> {
 
-    public WOrderResourceAssembler() {
-        super(WOrderRestController.class, WOrderResource.class);
+    public WOrderItemResourceAssembler() {
+        super(WOrderItemRestController.class, WOrderItemResource.class);
     }
 
     @Override
-    public WOrderResource toResource(WOrder entity) {
-        WOrderResource mbr = new WOrderResource(entity);
+    public WOrderItemResource toResource(WOrderItem entity) {
+        WOrderItemResource mbr = new WOrderItemResource(entity);
         List<Link> links = Lists.newArrayList();
-        links.add(linkTo(methodOn(WOrderRestController.class, entity.getId()).getWOrderItems(entity.getId())).withRel("items"));
-        links.add(linkTo(methodOn(WOrderRestController.class).getWOrder(entity.getId())).withSelfRel());
+//        links.add(linkTo(methodOn(WOrderItemRestController.class).getWOrderItems(entity.getId())).withRel("items"));
+        links.add(linkTo(methodOn(WOrderItemRestController.class).getWOrderItem(entity.getId())).withSelfRel());
         mbr.add(links);
         return mbr;
     }

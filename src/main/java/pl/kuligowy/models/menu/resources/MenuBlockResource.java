@@ -5,15 +5,8 @@
  */
 package pl.kuligowy.models.menu.resources;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.core.Relation;
 import pl.kuligowy.models.menu.MenuBlock;
@@ -23,18 +16,20 @@ import pl.kuligowy.models.menu.MenuBlockItem;
  *
  * @author coolig
  */
-//@Relation(value = "author", collectionRelation = "authors")
+@Relation(value = "menuBlockItem", collectionRelation = "menuBlockItems")
 public class MenuBlockResource extends ResourceSupport {
 
     private Integer id;
     private String title;
     private Integer sort;
     private List<MenuBlockItemResource> menuBlockItemList;
+//    private List<MenuBlockItem> menuBlockItemList;
 
     public MenuBlockResource(MenuBlock mb) {
         this.id = mb.getId();
         this.title = mb.getTitle();
         this.sort = mb.getSort();
+//        this.menuBlockItemList = mb.getMenuBlockItemList();
     }
 
     @JsonProperty(value = "id")
@@ -69,5 +64,4 @@ public class MenuBlockResource extends ResourceSupport {
     public void setMenuBlockItemList(List<MenuBlockItemResource> menuBlockItemList) {
         this.menuBlockItemList = menuBlockItemList;
     }
-
 }

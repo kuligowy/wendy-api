@@ -5,6 +5,7 @@
  */
 package pl.kuligowy.models.orders;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +57,7 @@ public class WOrder implements Serializable {
     @ManyToOne
     private WOrderStatus statusId;
     @OneToMany(mappedBy = "worderId")
+    @JsonManagedReference
     private List<WOrderItem> wOrderItemList;
 
     public WOrder() {

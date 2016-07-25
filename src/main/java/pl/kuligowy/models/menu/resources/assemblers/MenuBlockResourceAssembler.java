@@ -6,7 +6,6 @@
 package pl.kuligowy.models.menu.resources.assemblers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -14,7 +13,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 import pl.kuligowy.models.menu.MenuBlock;
-import pl.kuligowy.models.menu.MenuBlockItem;
 import pl.kuligowy.models.menu.resources.MenuBlockItemResource;
 import pl.kuligowy.models.menu.resources.MenuBlockResource;
 import pl.kuligowy.rest.UserRestController;
@@ -38,7 +36,7 @@ public class MenuBlockResourceAssembler extends ResourceAssemblerSupport<MenuBlo
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    
+
     @Override
     public MenuBlockResource toResource(MenuBlock entity) {
         itemAssembler.setUserId(userId);
@@ -49,5 +47,4 @@ public class MenuBlockResourceAssembler extends ResourceAssemblerSupport<MenuBlo
         mbr.add(linkself);
         return mbr;
     }
-
 }

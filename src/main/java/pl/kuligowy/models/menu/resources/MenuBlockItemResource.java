@@ -5,7 +5,7 @@
  */
 package pl.kuligowy.models.menu.resources;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import org.springframework.hateoas.ResourceSupport;
 import pl.kuligowy.models.menu.MenuBlockItem;
 
@@ -13,29 +13,28 @@ import pl.kuligowy.models.menu.MenuBlockItem;
  *
  * @author coolig
  */
+@JsonRootName(value = "menuBlockItem")
 public class MenuBlockItemResource extends ResourceSupport {
 
-    private Integer id;
+//    private Integer id;
     private String title;
     private Integer statusId;
     private Integer sort;
 
     public MenuBlockItemResource(MenuBlockItem mbi) {
-        this.id = mbi.getId();
+//        this.id = mbi.getId();
         this.title = mbi.getTitle();
         this.statusId = mbi.getStatusId();
         this.sort = mbi.getSort();
     }
 
-    @JsonProperty(value = "id")
-    public Integer getObjectId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+//    @JsonProperty(value = "id")
+//    public Integer getObjectId() {
+//        return id;
+//    }
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
     public String getTitle() {
         return title;
     }
@@ -59,5 +58,4 @@ public class MenuBlockItemResource extends ResourceSupport {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
-
 }
