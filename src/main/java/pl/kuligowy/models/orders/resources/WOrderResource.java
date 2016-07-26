@@ -8,8 +8,10 @@ package pl.kuligowy.models.orders.resources;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import org.springframework.hateoas.ResourceSupport;
 import pl.kuligowy.models.orders.WOrder;
+import pl.kuligowy.rest.status_services.Action;
 
 /**
  *
@@ -23,6 +25,7 @@ public class WOrderResource extends ResourceSupport implements Serializable {
     private String description;
     private Integer ownerId;
     private String statusId;
+    private List<Action> actionList;
 
     public WOrderResource(WOrder order) {
 //        this.id = order.getId();
@@ -114,4 +117,13 @@ public class WOrderResource extends ResourceSupport implements Serializable {
     public String toString() {
         return "pl.kuligowy.models.orders.WOrder[ id=" + hashCode() + " ]";
     }
+
+    public void setActionList(List<Action> actionList) {
+        this.actionList = actionList;
+    }
+
+    public List<Action> getActionList() {
+        return actionList;
+    }
+
 }

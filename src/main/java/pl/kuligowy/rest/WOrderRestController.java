@@ -7,6 +7,8 @@ package pl.kuligowy.rest;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,16 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kuligowy.dao.order.WOrderDao;
 import pl.kuligowy.dao.repositiories.WOrderItemRepository;
+import pl.kuligowy.models.orders.WOrder;
 import pl.kuligowy.models.orders.WOrderStatus;
+import pl.kuligowy.models.orders.resources.WOrderCollectionResource;
+import pl.kuligowy.models.orders.resources.WOrderItemCollectionResource;
+import pl.kuligowy.models.orders.resources.WOrderItemResource;
 import pl.kuligowy.models.orders.resources.WOrderResource;
 import pl.kuligowy.models.orders.resources.assemblers.WOrderItemResourceAssembler;
 import pl.kuligowy.models.orders.resources.assemblers.WOrderResourceAssembler;
-import pl.kuligowy.models.orders.WOrder;
-import pl.kuligowy.models.orders.resources.WOrderItemCollectionResource;
-import pl.kuligowy.models.orders.resources.WOrderItemResource;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
-import pl.kuligowy.models.orders.resources.WOrderCollectionResource;
 
 /**
  *

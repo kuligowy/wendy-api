@@ -33,6 +33,8 @@ public class WOrderItemResourceAssembler extends ResourceAssemblerSupport<WOrder
         List<Link> links = Lists.newArrayList();
 //        links.add(linkTo(methodOn(WOrderItemRestController.class).getWOrderItems(entity.getId())).withRel("items"));
         links.add(linkTo(methodOn(WOrderItemRestController.class).getWOrderItem(entity.getId())).withSelfRel());
+
+
         mbr.add(links);
         return mbr;
     }
