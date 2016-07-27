@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
  * @author coolig
  */
 @Entity
-@Table(name = "worder" )
+@Table(name = "worder")
 @NamedQueries({
     @NamedQuery(name = "WOrder.findAll", query = "SELECT w FROM WOrder w"),
     @NamedQuery(name = "WOrder.findById", query = "SELECT w FROM WOrder w WHERE w.id = :id"),
@@ -139,5 +139,5 @@ public class WOrder implements Serializable {
     public String toString() {
         return "pl.kuligowy.models.orders.WOrder[ id=" + id + " ]";
     }
-    
+
 }

@@ -7,22 +7,27 @@ INSERT INTO user(id,login,role_id) VALUES (2,'manager',2);
 INSERT INTO user(id,login,role_id) VALUES (3,'test user',3);
 INSERT INTO user(id,login,role_id) VALUES (4,'magazynier',2);
 
-INSERT INTO permission(id,name) values(1,'podglad user-open');
-INSERT INTO permission(id,name) values(2,'podglad user-closed');
-INSERT INTO permission(id,name) values(3,'podglad user-printed');
+INSERT INTO permission(id,name) values(1,'podglad-user-open');
+INSERT INTO permission(id,name) values(2,'podglad-user-closed');
+INSERT INTO permission(id,name) values(3,'podglad-user-printed');
 --
-INSERT INTO permission(id,name) values(4,'podglad manager-open');
-INSERT INTO permission(id,name) values(5,'podglad manager-closed');
+INSERT INTO permission(id,name) values(4,'podglad-manager-open');
+INSERT INTO permission(id,name) values(5,'podglad-manager-closed');
 --
-INSERT INTO permission(id,name) values(6,'podglad magazynier open');
-INSERT INTO permission(id,name) values(7,'podglad magazynier closed');
-INSERT INTO permission(id,name) values(8,'podglad magazynier printed');
+INSERT INTO permission(id,name) values(6,'podglad-magazynier open');
+INSERT INTO permission(id,name) values(7,'podglad-magazynier closed');
+INSERT INTO permission(id,name) values(8,'podglad-magazynier printed');
+
+INSERT INTO permission(id,name) values(9,'10-close');
+INSERT INTO permission(id,name) values(10,'10-delete');
 
 
 --user
 INSERT INTO role_permission(permission_id,role_id) VALUES(1,1);
 INSERT INTO role_permission(permission_id,role_id) VALUES(2,1);
 INSERT INTO role_permission(permission_id,role_id) VALUES(3,1);
+INSERT INTO role_permission(permission_id,role_id) VALUES(9,1);
+--INSERT INTO role_permission(permission_id,role_id) VALUES(10,1);
 --manager
 INSERT INTO role_permission(permission_id,role_id) VALUES(4,2);
 INSERT INTO role_permission(permission_id,role_id) VALUES(5,2);
@@ -71,7 +76,7 @@ insert into worder_status(id,title) values (50,'open 50 ');
 
 insert into worder (id,timeoforder,description,owner_id,status_id) values(1,now(),'test 10',1,10);
 insert into worder (id,timeoforder,description,owner_id,status_id) values(2,now(),'test 10 - 2',1,10);
-insert into worder (id,timeoforder,description,owner_id,status_id) values(3,now(),'test 30',1,30);
+insert into worder (id,timeoforder,description,owner_id,status_id) values(3,now(),'test 220',1,20);
 insert into worder (id,timeoforder,description,owner_id,status_id) values(4,now(),'test 40',1,30);
 insert into worder (id,timeoforder,description,owner_id,status_id) values(5,now(),'test 50',1,30);
 

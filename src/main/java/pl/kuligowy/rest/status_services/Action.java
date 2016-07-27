@@ -8,6 +8,8 @@ package pl.kuligowy.rest.status_services;
 import com.google.common.collect.Lists;
 import java.io.Serializable;
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestMethod;
+import pl.kuligowy.models.orders.WOrder;
 
 /**
  *
@@ -76,6 +78,41 @@ public class Action implements Serializable {
 
     public void addField(Field field) {
         this.fields.add(field);
+    }
+
+    static class ActionBuilder {
+
+        private final WOrder worder;
+        private final Action action;
+
+        public ActionBuilder(WOrder worder, String link, RequestMethod method) {
+            this.worder = worder;
+            this.action = new Action();
+            this.action.setLink(link);
+            this.action.setMethod(method.toString());
+
+        }
+
+        public ActionBuilder name(String s) {
+            this.action.name = s;
+            return this;
+        }
+
+        public ActionBuilder title(String s) {
+            this.action.title = s;
+            return this;
+        }
+
+        public ActionBuilder type(String s) {
+            this.action.type = s;
+            return this;
+
+        }
+
+        public Action build() {
+            return this.action;
+        }
+
     }
 
 }

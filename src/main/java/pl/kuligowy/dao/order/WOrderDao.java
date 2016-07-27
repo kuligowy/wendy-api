@@ -13,10 +13,11 @@ import pl.kuligowy.models.orders.WOrderStatus;
  * @author mkuligowski
  */
 public interface WOrderDao {
-    
+
     List<WOrder> getWOrderList(WOrderStatus statusId);
 
     public WOrder getWOrderById(Integer id);
-    
-    
+
+    public WOrder addWorder(WOrder worder);
+
 }

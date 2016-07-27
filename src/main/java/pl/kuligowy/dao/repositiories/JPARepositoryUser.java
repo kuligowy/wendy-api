@@ -17,4 +17,6 @@ import pl.kuligowy.models.users.User;
 public interface JPARepositoryUser extends JpaRepository<User, Integer> {
 
     List<User> findMenuItems(Long u);
+
+    User findByLogin(String login);
 }

@@ -19,6 +19,7 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 import pl.kuligowy.models.orders.WOrder;
 import pl.kuligowy.models.orders.resources.WOrderResource;
+import pl.kuligowy.rest.WOrderActionRestController;
 import pl.kuligowy.rest.WOrderRestController;
 import pl.kuligowy.rest.status_services.Action;
 import pl.kuligowy.rest.status_services.StatusService;
@@ -43,10 +44,11 @@ public class WOrderResourceAssembler extends ResourceAssemblerSupport<WOrder, WO
         WOrderResource mbr = new WOrderResource(entity);
         List<Link> links = Lists.newArrayList();
         links.add(linkTo(methodOn(WOrderRestController.class, entity.getId()).getWOrderItems(entity.getId())).withRel("items"));
-        links.add(linkTo(methodOn(WOrderRestController.class).getWOrder(entity.getId())).withSelfRel());
+        links.add(linkTo(methodOn(WOrderActionRestController.class, entity.getId()).getActions(entity.getId())).withRel("actions"));
+        links.add(linkTo(methodOn(WOrderRestController.class).getWOrder(entity.getId(), null)).withSelfRel());
         mbr.add(links);
         //        mbr.add(createActionLinks(entity));
-        mbr.setActionList(createActions(entity));
+//        mbr.setActionList(createActions(entity));
         return mbr;
     }
 

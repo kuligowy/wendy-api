@@ -26,13 +26,19 @@ public class WOrderDaoImpl implements WOrderDao {
         this.repo = repo;
     }
 
+    @Override
     public List<WOrder> getWOrderList(WOrderStatus statusId) {
         return repo.findByStatusId(statusId);
     }
 
+    @Override
     public WOrder getWOrderById(Integer id) {
         return repo.findOne(id);
     }
-    
-    
+
+    @Override
+    public WOrder addWorder(WOrder worder) {
+        return repo.saveAndFlush(worder);
+    }
+
 }

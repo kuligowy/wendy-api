@@ -4,14 +4,12 @@
  */
 package pl.kuligowy.rest;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kuligowy.dao.repositiories.WOrderItemRepository;
-import pl.kuligowy.models.orders.WOrder;
 import pl.kuligowy.models.orders.resources.WOrderItemResource;
 import pl.kuligowy.models.orders.resources.assemblers.WOrderItemResourceAssembler;
 
@@ -20,7 +18,7 @@ import pl.kuligowy.models.orders.resources.assemblers.WOrderItemResourceAssemble
  * @author mkuligowski
  */
 @RestController
-@RequestMapping(path = "/worderItem")
+@RequestMapping(path = "/worderItems")
 public class WOrderItemRestController {
 
     private WOrderItemRepository repo;

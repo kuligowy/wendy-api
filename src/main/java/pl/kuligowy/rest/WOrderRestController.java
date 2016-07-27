@@ -5,11 +5,15 @@
  */
 package pl.kuligowy.rest;
 
+import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,19 +22,21 @@ import pl.kuligowy.dao.order.WOrderDao;
 import pl.kuligowy.dao.repositiories.WOrderItemRepository;
 import pl.kuligowy.models.orders.WOrder;
 import pl.kuligowy.models.orders.WOrderStatus;
+import pl.kuligowy.models.orders.resources.HistoryEntry;
 import pl.kuligowy.models.orders.resources.WOrderCollectionResource;
 import pl.kuligowy.models.orders.resources.WOrderItemCollectionResource;
 import pl.kuligowy.models.orders.resources.WOrderItemResource;
 import pl.kuligowy.models.orders.resources.WOrderResource;
 import pl.kuligowy.models.orders.resources.assemblers.WOrderItemResourceAssembler;
 import pl.kuligowy.models.orders.resources.assemblers.WOrderResourceAssembler;
+import pl.kuligowy.models.users.User;
 
 /**
  *
  * @author coolig
  */
 @RestController
-@RequestMapping(path = "/worder")
+@RequestMapping(path = "/worders")
 public class WOrderRestController {
 
     private WOrderDao worderDao;
@@ -47,11 +53,6 @@ public class WOrderRestController {
         this.assemblerItem = assemblerItem;
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public WOrderResource getWOrder(@PathVariable Integer id) {
-        return assembler.toResource(worderDao.getWOrderById(id));
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public WOrderCollectionResource getWOrders(@RequestParam(name = "statusId") Integer statusId) {
         WOrderStatus wos = new WOrderStatus(statusId);
@@ -61,7 +62,29 @@ public class WOrderRestController {
         return resource;
     }
 
-    @RequestMapping(path = "/{id}/worderItem", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
+    public WOrderResource addWorder(@RequestBody WOrder worder) {
+        System.out.println("worder " + ReflectionToStringBuilder.toString(worder));
+        worder = worderDao.addWorder(worder);
+        return assembler.toResource(worder);
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public WOrderResource getWOrder(@PathVariable Integer id, @AuthenticationPrincipal User user) {
+        System.out.println("user " + user);
+        return assembler.toResource(worderDao.getWOrderById(id));
+    }
+
+    @RequestMapping(path = "/{id}/history", method = RequestMethod.GET)
+    public HistoryEntry getWOrderHistory(@PathVariable Integer id) {
+        HistoryEntry he = new HistoryEntry();
+        he.setConfirmationDate(new Date());
+        he.setWho("Ziobro");
+        return he;
+//        return assembler.toResource(worderDao.getWOrderById(id));
+    }
+
+    @RequestMapping(path = "/{id}/worderItems", method = RequestMethod.GET)
     public WOrderItemCollectionResource getWOrderItems(@PathVariable Integer id) {
         WOrder parent = new WOrder(id);
         List<WOrderItemResource> list = assemblerItem.toResources(itemRepo.findByWorderId(parent));

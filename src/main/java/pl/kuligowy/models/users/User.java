@@ -6,7 +6,18 @@ package pl.kuligowy.models.users;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -17,9 +28,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "user")
 @NamedQuery(name = "User.findMenuItems",
-query = " SELECT u FROM User u "
-+ "JOIN u.roleId r "
-+ "WHERE u.id = ?1")
+        query = " SELECT u FROM User u "
+        + "JOIN u.roleId r "
+        + "WHERE u.id = ?1")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +50,16 @@ public class User implements Serializable {
     @Column(name = "tel")
     private String tel;
     @ManyToMany
-    @JoinTable(name = "user_permission", joinColumns =
-    @JoinColumn(name = "user_id", referencedColumnName = "id"),
-    inverseJoinColumns =
-    @JoinColumn(name = "permission_id", referencedColumnName = "id"))
+    @JoinTable(name = "user_permission", joinColumns
+            = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns
+            = @JoinColumn(name = "permission_id", referencedColumnName = "id"))
     private List<Permission> permissionList;
     @ManyToOne
     @JoinColumn(name = "roleId", referencedColumnName = "id")
     private Role roleId;
+    @Column(name = "passwordHash")
+    private String passwordHash;
 
     public User() {
     }
@@ -95,20 +108,20 @@ public class User implements Serializable {
         this.tel = tel;
     }
 
-    public List<Permission> getUserPermissionList() {
-        return permissionList;
-    }
-
-    public void setUserPermissionList(List<Permission> permissionList) {
-        this.permissionList = permissionList;
-    }
-
     public Role getRoleId() {
         return roleId;
     }
 
     public void setRoleId(Role roleId) {
         this.roleId = roleId;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     @Override
