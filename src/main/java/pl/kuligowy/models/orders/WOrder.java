@@ -24,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+import pl.kuligowy.models.users.User;
 
 /**
  *
@@ -35,8 +36,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "WOrder.findAll", query = "SELECT w FROM WOrder w"),
     @NamedQuery(name = "WOrder.findById", query = "SELECT w FROM WOrder w WHERE w.id = :id"),
     @NamedQuery(name = "WOrder.findByTimeoforder", query = "SELECT w FROM WOrder w WHERE w.timeoforder = :timeoforder"),
-    @NamedQuery(name = "WOrder.findByDescription", query = "SELECT w FROM WOrder w WHERE w.description = :description"),
-    @NamedQuery(name = "WOrder.findByOwnerId", query = "SELECT w FROM WOrder w WHERE w.ownerId = :ownerId")})
+    @NamedQuery(name = "WOrder.findByDescription", query = "SELECT w FROM WOrder w WHERE w.description = :description")})
 public class WOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,8 +51,9 @@ public class WOrder implements Serializable {
     @Size(max = 2147483647)
     @Column(name = "description")
     private String description;
-    @Column(name = "owner_id")
-    private Integer ownerId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private User userId;
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     @ManyToOne
     private WOrderStatus statusId;
@@ -91,12 +92,12 @@ public class WOrder implements Serializable {
         this.description = description;
     }
 
-    public Integer getOwnerId() {
-        return ownerId;
+    public User getUserId() {
+        return userId;
     }
 
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     public WOrderStatus getStatusId() {

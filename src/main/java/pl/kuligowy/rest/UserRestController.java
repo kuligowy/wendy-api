@@ -4,15 +4,16 @@
  */
 package pl.kuligowy.rest;
 
-import com.google.common.collect.Lists;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import pl.kuligowy.dao.user.MenuDao;
-import pl.kuligowy.models.orders.WOrder;
-import pl.kuligowy.models.users.User;
 import pl.kuligowy.models.menu.resources.MenuBlockResource;
 import pl.kuligowy.models.menu.resources.assemblers.MenuBlockResourceAssembler;
+import pl.kuligowy.models.users.User;
 
 /**
  *
@@ -26,7 +27,7 @@ public class UserRestController {
     private final MenuBlockResourceAssembler menuBlockAssembler;
 
     @Autowired
-    public UserRestController(MenuDao menuDao,MenuBlockResourceAssembler menuBlockAssembler) {
+    public UserRestController(MenuDao menuDao, MenuBlockResourceAssembler menuBlockAssembler) {
         this.menuDao = menuDao;
         this.menuBlockAssembler = menuBlockAssembler;
     }

@@ -7,10 +7,14 @@ package pl.kuligowy.rest;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +43,8 @@ import pl.kuligowy.models.users.User;
 @RequestMapping(path = "/worders")
 public class WOrderRestController {
 
+    private static final Logger logger = Logger.getLogger("WOrderRestController");
+
     private WOrderDao worderDao;
     private WOrderItemRepository itemRepo;
     private WOrderResourceAssembler assembler;
@@ -54,11 +60,15 @@ public class WOrderRestController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public WOrderCollectionResource getWOrders(@RequestParam(name = "statusId") Integer statusId) {
+    @PreAuthorize("hasAuthority(#statusId)")
+    public WOrderCollectionResource getWOrders(@RequestParam(name = "statusId") Integer statusId,
+            @AuthenticationPrincipal User user) {
         WOrderStatus wos = new WOrderStatus(statusId);
-        List<WOrderResource> list = assembler.toResources(worderDao.getWOrderList(wos));
+        logger.log(Level.INFO, "Principal {0} ", user.getLogin());
+        List<WOrderResource> list = assembler.toResources(worderDao.getWOrders(wos, null, null, null));
         WOrderCollectionResource resource = new WOrderCollectionResource(list);
-        resource.add(linkTo(methodOn(WOrderRestController.class).getWOrders(statusId)).withSelfRel());
+        Link link = new Link(linkTo(WOrderRestController.class).toUriComponentsBuilder().queryParam("statusId", statusId).toUriString(), "self");
+        resource.add(link);
         return resource;
     }
 

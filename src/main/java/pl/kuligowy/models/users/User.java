@@ -16,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,10 +26,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "user")
-@NamedQuery(name = "User.findMenuItems",
-        query = " SELECT u FROM User u "
-        + "JOIN u.roleId r "
-        + "WHERE u.id = ?1")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

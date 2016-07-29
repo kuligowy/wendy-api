@@ -14,11 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.springframework.hateoas.ResourceSupport;
 
 /**
  *
@@ -26,16 +23,8 @@ import org.springframework.hateoas.ResourceSupport;
  */
 @Entity
 @Table(name = "menu_block")
-@NamedQueries({
-    @NamedQuery(name = "MenuBlock.findByUser",
-            query = "SELECT distinct mb FROM User u,MenuBlock mb "
-            + " LEFT JOIN u.permissionList upl "
-            + " LEFT JOIN u.roleId.permissionList rpl "
-            + " JOIN mb.menuBlockItemList mbi "
-            + "WHERE (mbi.permissionId.id = upl.id  OR  mbi.permissionId.id = rpl.id  ) "
-            + "  AND u.id = ?1 "
-            + "ORDER BY mb.sort asc ")})
-public class MenuBlock implements Serializable  {
+
+public class MenuBlock implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

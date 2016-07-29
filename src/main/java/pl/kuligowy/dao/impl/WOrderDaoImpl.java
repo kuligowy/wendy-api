@@ -4,6 +4,7 @@
  */
 package pl.kuligowy.dao.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import pl.kuligowy.dao.order.WOrderDao;
 import pl.kuligowy.dao.repositiories.WOrderRepository;
 import pl.kuligowy.models.orders.WOrder;
 import pl.kuligowy.models.orders.WOrderStatus;
+import pl.kuligowy.models.users.User;
 
 /**
  *
@@ -27,7 +29,7 @@ public class WOrderDaoImpl implements WOrderDao {
     }
 
     @Override
-    public List<WOrder> getWOrderList(WOrderStatus statusId) {
+    public List<WOrder> getWOrders(WOrderStatus statusId) {
         return repo.findByStatusId(statusId);
     }
 
@@ -39,6 +41,16 @@ public class WOrderDaoImpl implements WOrderDao {
     @Override
     public WOrder addWorder(WOrder worder) {
         return repo.saveAndFlush(worder);
+    }
+
+    @Override
+    public List<WOrder> getWOrders(WOrderStatus status, boolean seesAllUnits) {
+        return repo.findByStatusIdFilterByUnit(status, seesAllUnits);
+    }
+
+    @Override
+    public List<WOrder> getWOrders(WOrderStatus status, LocalDate timeoforder, User owner, String description) {
+        return repo.findByStatusIdOrTimeoforderOrUserIdOrDescription(status, timeoforder, owner, description);
     }
 
 }

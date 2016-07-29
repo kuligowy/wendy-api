@@ -7,7 +7,6 @@ package pl.kuligowy.dao.user;
 
 import java.util.List;
 import pl.kuligowy.models.menu.MenuBlock;
-import pl.kuligowy.models.menu.MenuBlockItem;
 import pl.kuligowy.models.users.User;
 
 /**
@@ -15,8 +14,6 @@ import pl.kuligowy.models.users.User;
  * @author coolig
  */
 public interface MenuDao {
-    
-    List<MenuBlockItem> getMenuByUser(User u);
-    
+
     List<MenuBlock> getMenu(User u);
 }

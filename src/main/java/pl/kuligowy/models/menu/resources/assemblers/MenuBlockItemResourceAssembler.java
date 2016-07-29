@@ -6,12 +6,12 @@
 package pl.kuligowy.models.menu.resources.assemblers;
 
 import org.springframework.hateoas.Link;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 import pl.kuligowy.models.menu.MenuBlockItem;
 import pl.kuligowy.models.menu.resources.MenuBlockItemResource;
 import pl.kuligowy.rest.UserRestController;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import pl.kuligowy.rest.WOrderRestController;
 
 /**
@@ -22,7 +22,7 @@ import pl.kuligowy.rest.WOrderRestController;
 public class MenuBlockItemResourceAssembler extends ResourceAssemblerSupport<MenuBlockItem, MenuBlockItemResource> {
 
     private Long userId;
-    
+
     public MenuBlockItemResourceAssembler() {
         super(UserRestController.class, MenuBlockItemResource.class);
     }
@@ -30,14 +30,16 @@ public class MenuBlockItemResourceAssembler extends ResourceAssemblerSupport<Men
     public void setUserId(Long userId) {
         this.userId = userId;
     }
- 
+
     @Override
     public MenuBlockItemResource toResource(MenuBlockItem entity) {
 //        createResourceWithId(entity.getId(), entity)
         MenuBlockItemResource mbir = new MenuBlockItemResource(entity);
 //        Link linkself = linkTo(methodOn(UserRestController.class).getMenu(userId)).withSelfRel();
-        Link link = linkTo(methodOn(WOrderRestController.class)//
-                    .getWOrders(entity.getStatusId())).withRel("orders");
+        Link link = new Link(linkTo(WOrderRestController.class).toUriComponentsBuilder().queryParam("statusId", entity.getStatusId()).toUriString(), "orders");
+//        Link link = linkTo(methodOn(WOrderRestController.class)//
+//                    .getWOrders()).withRel("orders");
+
         mbir.add(link);
 //        mbir.add(linkself);
         return mbir;

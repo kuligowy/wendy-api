@@ -4,29 +4,29 @@ INSERT INTO role(id,name) values(3,'ADMIN');
 
 INSERT INTO user(id,login,role_id) VALUES (1,'coolig',1);
 INSERT INTO user(id,login,role_id) VALUES (2,'manager',2);
-INSERT INTO user(id,login,role_id) VALUES (3,'test user',3);
+INSERT INTO user(id,login,role_id) VALUES (3,'admin',3);
 INSERT INTO user(id,login,role_id) VALUES (4,'magazynier',2);
 
-INSERT INTO permission(id,name) values(1,'podglad-user-open');
-INSERT INTO permission(id,name) values(2,'podglad-user-closed');
-INSERT INTO permission(id,name) values(3,'podglad-user-printed');
+INSERT INTO permission(id,name) values(1,'10');
+INSERT INTO permission(id,name) values(2,'20');
+INSERT INTO permission(id,name) values(3,'30');
 --
-INSERT INTO permission(id,name) values(4,'podglad-manager-open');
-INSERT INTO permission(id,name) values(5,'podglad-manager-closed');
+INSERT INTO permission(id,name) values(4,'40');
+INSERT INTO permission(id,name) values(5,'50');
 --
-INSERT INTO permission(id,name) values(6,'podglad-magazynier open');
-INSERT INTO permission(id,name) values(7,'podglad-magazynier closed');
-INSERT INTO permission(id,name) values(8,'podglad-magazynier printed');
+INSERT INTO permission(id,name) values(6,'10');
+INSERT INTO permission(id,name) values(7,'20');
+INSERT INTO permission(id,name) values(8,'30');
 
-INSERT INTO permission(id,name) values(9,'10-close');
-INSERT INTO permission(id,name) values(10,'10-delete');
+INSERT INTO permission(id,name) values(9,'widzi-wszystkie-jednostki');
+--INSERT INTO permission(id,name) values(10,'10-delete');
 
 
 --user
 INSERT INTO role_permission(permission_id,role_id) VALUES(1,1);
 INSERT INTO role_permission(permission_id,role_id) VALUES(2,1);
 INSERT INTO role_permission(permission_id,role_id) VALUES(3,1);
-INSERT INTO role_permission(permission_id,role_id) VALUES(9,1);
+--INSERT INTO role_permission(permission_id,role_id) VALUES(9,1);
 --INSERT INTO role_permission(permission_id,role_id) VALUES(10,1);
 --manager
 INSERT INTO role_permission(permission_id,role_id) VALUES(4,2);
@@ -37,6 +37,7 @@ INSERT INTO role_permission(permission_id,role_id) VALUES(2,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(3,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(4,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(5,3);
+INSERT INTO role_permission(permission_id,role_id) VALUES(9,3);
 
 INSERT INTO user_permission(permission_id,user_id) VALUES(6,4);
 INSERT INTO user_permission(permission_id,user_id) VALUES(7,4);
@@ -74,11 +75,11 @@ insert into worder_status(id,title) values (30,'open 30 ');
 insert into worder_status(id,title) values (40,'open 40');
 insert into worder_status(id,title) values (50,'open 50 ');
 
-insert into worder (id,timeoforder,description,owner_id,status_id) values(1,now(),'test 10',1,10);
-insert into worder (id,timeoforder,description,owner_id,status_id) values(2,now(),'test 10 - 2',1,10);
-insert into worder (id,timeoforder,description,owner_id,status_id) values(3,now(),'test 220',1,20);
-insert into worder (id,timeoforder,description,owner_id,status_id) values(4,now(),'test 40',1,30);
-insert into worder (id,timeoforder,description,owner_id,status_id) values(5,now(),'test 50',1,30);
+insert into worder (id,timeoforder,description,user_id,status_id) values(1,now(),'test 10',1,10);
+insert into worder (id,timeoforder,description,user_id,status_id) values(2,now(),'test 10 - 2',2,10);
+insert into worder (id,timeoforder,description,user_id,status_id) values(3,now(),'test 220',1,20);
+insert into worder (id,timeoforder,description,user_id,status_id) values(4,now(),'test 40',1,30);
+insert into worder (id,timeoforder,description,user_id,status_id) values(5,now(),'test 50',1,30);
 
 insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(1,10,10,1,1,1);
 insert into worder_item(id,price,quantity,product_id,supplier_id,worder_id) values(2,11,9,2,3,2);
