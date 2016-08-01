@@ -19,18 +19,23 @@ INSERT INTO permission(id,name) values(7,'20');
 INSERT INTO permission(id,name) values(8,'30');
 
 INSERT INTO permission(id,name) values(9,'widzi-wszystkie-jednostki');
---INSERT INTO permission(id,name) values(10,'10-delete');
+INSERT INTO permission(id,name) values(10,'10-close');
+INSERT INTO permission(id,name) values(20,'20-delete');
+INSERT INTO permission(id,name) values(30,'30-history');
+INSERT INTO permission(id,name) values(40,'40-history');
 
 
 --user
 INSERT INTO role_permission(permission_id,role_id) VALUES(1,1);
 INSERT INTO role_permission(permission_id,role_id) VALUES(2,1);
 INSERT INTO role_permission(permission_id,role_id) VALUES(3,1);
---INSERT INTO role_permission(permission_id,role_id) VALUES(9,1);
---INSERT INTO role_permission(permission_id,role_id) VALUES(10,1);
+INSERT INTO role_permission(permission_id,role_id) VALUES(10,1);
+INSERT INTO role_permission(permission_id,role_id) VALUES(20,1);
+INSERT INTO role_permission(permission_id,role_id) VALUES(30,1);
 --manager
 INSERT INTO role_permission(permission_id,role_id) VALUES(4,2);
 INSERT INTO role_permission(permission_id,role_id) VALUES(5,2);
+INSERT INTO role_permission(permission_id,role_id) VALUES(40,2);
 --admin
 INSERT INTO role_permission(permission_id,role_id) VALUES(1,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(2,3);
@@ -38,10 +43,16 @@ INSERT INTO role_permission(permission_id,role_id) VALUES(3,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(4,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(5,3);
 INSERT INTO role_permission(permission_id,role_id) VALUES(9,3);
+INSERT INTO role_permission(permission_id,role_id) VALUES(10,3);
+INSERT INTO role_permission(permission_id,role_id) VALUES(20,3);
+INSERT INTO role_permission(permission_id,role_id) VALUES(30,3);
+INSERT INTO role_permission(permission_id,role_id) VALUES(40,3);
 
 INSERT INTO user_permission(permission_id,user_id) VALUES(6,4);
 INSERT INTO user_permission(permission_id,user_id) VALUES(7,4);
 INSERT INTO user_permission(permission_id,user_id) VALUES(8,4);
+--INSERT INTO user_permission(permission_id,user_id) VALUES(10,1);
+--INSERT INTO user_permission(permission_id,user_id) VALUES(20,1);
 
 INSERT INTO menu_block(id,title,sort) VALUES (1,'USER',10);
 INSERT INTO menu_block(id,title,sort) VALUES (2,'MANAGER',20);

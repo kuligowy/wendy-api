@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kuligowy.rest.status_services;
+package pl.kuligowy.services.status_services;
 
+import pl.kuligowy.models.methods.Action;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Component;
 import pl.kuligowy.models.orders.WOrder;
@@ -36,7 +37,7 @@ public class ActionFactory {
 
         action.setMethod("PATCH");
         action.setLink(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(WOrderRestController.class, order.getId()).getWOrder(order.getId(), null)).toUri().toString());
-        action.addField(new pl.kuligowy.rest.status_services.Field("statusId", "integer", idForClose.toString()));
+        action.addField(new pl.kuligowy.models.methods.Field("statusId", "integer", idForClose.toString()));
         return action;
     }
 

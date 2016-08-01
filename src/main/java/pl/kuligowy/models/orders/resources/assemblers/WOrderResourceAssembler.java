@@ -21,9 +21,9 @@ import pl.kuligowy.models.orders.WOrder;
 import pl.kuligowy.models.orders.resources.WOrderResource;
 import pl.kuligowy.rest.WOrderActionRestController;
 import pl.kuligowy.rest.WOrderRestController;
-import pl.kuligowy.rest.status_services.Action;
-import pl.kuligowy.rest.status_services.StatusService;
-import pl.kuligowy.rest.status_services.StatusServiceFactory;
+import pl.kuligowy.models.methods.Action;
+import pl.kuligowy.services.status_services.StatusService;
+import pl.kuligowy.services.status_services.StatusServiceFactory;
 
 /**
  *
@@ -44,18 +44,16 @@ public class WOrderResourceAssembler extends ResourceAssemblerSupport<WOrder, WO
         WOrderResource mbr = new WOrderResource(entity);
         List<Link> links = Lists.newArrayList();
         links.add(linkTo(methodOn(WOrderRestController.class, entity.getId()).getWOrderItems(entity.getId())).withRel("items"));
-        links.add(linkTo(methodOn(WOrderActionRestController.class, entity.getId()).getActions(entity.getId())).withRel("actions"));
+        links.add(new Link(linkTo(WOrderActionRestController.class, entity.getId()).toUriComponentsBuilder().toUriString(),"actions"));
+//        Link link = new Link(linkTo(WOrderRestController.class).toUriComponentsBuilder().queryParam("statusId", statusId).toUriString(), "self");        
+//links.add(linkTo(methodOn(WOrderActionRestController.class, entity.getId()).getActions(entity.getId())).withRel("actions"));
         links.add(linkTo(methodOn(WOrderRestController.class).getWOrder(entity.getId(), null)).withSelfRel());
         mbr.add(links);
         //        mbr.add(createActionLinks(entity));
 //        mbr.setActionList(createActions(entity));
         return mbr;
     }
-
-    private List<Action> createActions(WOrder wos) {
-        StatusService ss = serviceFactory.getStatusService(wos);
-        return ss.getActions();
-    }
+ 
 
     private List<Link> createActionLinks(WOrder wos) {
         List<Link> list = Lists.newArrayList();

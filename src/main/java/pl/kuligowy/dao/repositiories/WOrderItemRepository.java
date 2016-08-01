@@ -14,7 +14,8 @@ import pl.kuligowy.models.orders.WOrderItem;
  *
  * @author mkuligowski
  */
-@RepositoryRestResource()
+//@RepositoryRestResource()
+@RepositoryRestResource(exported = false)
 public interface WOrderItemRepository extends JpaRepository<WOrderItem, Integer> {
 
     List<WOrderItem> findByWorderId(WOrder worderId);

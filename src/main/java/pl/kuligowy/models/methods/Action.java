@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kuligowy.rest.status_services;
+package pl.kuligowy.models.methods;
 
 import com.google.common.collect.Lists;
 import java.io.Serializable;

@@ -21,7 +21,7 @@ import pl.kuligowy.models.users.User;
 @Component
 public class WOrderDaoImpl implements WOrderDao {
 
-    private WOrderRepository repo;
+    private final WOrderRepository repo;
 
     @Autowired
     public WOrderDaoImpl(WOrderRepository repo) {

@@ -2,11 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pl.kuligowy.rest.status_services;
+package pl.kuligowy.services.status_services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.kuligowy.models.orders.WOrder;
+import pl.kuligowy.models.users.User;
 
 /**
  *
@@ -32,4 +33,6 @@ public class StatusServiceFactory {
                 return defaultService.getWithWOrder(worder);
         }
     }
+
+ 
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.hateoas.ResourceSupport;
 import pl.kuligowy.models.orders.WOrder;
-import pl.kuligowy.rest.status_services.Action;
+import pl.kuligowy.models.methods.Action;
 
 /**
  *

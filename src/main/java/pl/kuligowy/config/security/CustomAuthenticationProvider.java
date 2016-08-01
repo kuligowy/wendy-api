@@ -51,11 +51,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         permissions.addAll(user.getPermissionList());
         permissions.addAll(user.getRoleId().getPermissionList());
         List<GrantedAuthority> authorities = permissions.stream().map(p -> new SimpleGrantedAuthority(p.getName())).collect(Collectors.toList());
-        // use the credentials and authenticate against the third-party system
         return new UsernamePasswordAuthenticationToken(user, password, authorities);
-//        } else {
-//            return null;
-//        }
     }
 
     @Override
